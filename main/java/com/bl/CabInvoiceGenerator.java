@@ -21,18 +21,40 @@ public class CabInvoiceGenerator
 	public double calculateFare(double distance, int time) {
 
 		double totalFare = distance * MINIMUM_COSt_PER_KILOMETER + time * COST_PER_MINUTE;
-		if (totalFare < MINIMUM_FARE)
-			return MINIMUM_FARE;
-		else
-			return totalFare;
+		return Math.max(totalFare, MINIMUM_FARE);
 	}
-
+	/**
+	 * Method to calculate totalfare for given multiple rides
+	 * @param rides - input number of rides
+	 * @return - total fare
+	 */
 	public double calculateTotalFare(Ride[] rides) {
 		double totalFare =0;
 		for (Ride ride : rides) {
-           totalFare += this.calculateFare(ride.getDistance(), ride.getTime());
-       }
-       return totalFare;
+            totalFare += this.calculateFare(ride.getDistance(), ride.getTime());
+        }
+        return totalFare;
+	}
+	/**
+	 * method to get number of rides
+	 * @param rides - array of rides as input
+	 * @return - returns number of rides
+	 */
+	public int getNumberOfRides(Ride[] rides) {
+		
+		return rides.length;
+	}
+	/**
+	 * here im calculated average Fare per ride
+	 * @param rides - input array of rides
+	 * @return - it returns average  fare of total rides
+	 */
+	public double calculateAverageRideCost(Ride[] rides) {
+		double totalFare=0;
+		for(Ride ride:rides) {
+			totalFare += calculateFare(ride.getDistance(), ride.getTime());
+		}
+		return totalFare / rides.length;
 	}
 
 }
