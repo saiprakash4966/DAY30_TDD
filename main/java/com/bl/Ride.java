@@ -27,6 +27,4 @@ public class Ride
 		this.time = time;
 		this.rideType = rideType;
 	}
-	
-	
 }
